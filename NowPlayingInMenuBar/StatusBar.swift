@@ -35,13 +35,20 @@ class StatusBar: NSObject {
         typealias MRMediaRemoteGetNowPlayingInfoFunction = @convention(c) (DispatchQueue, @escaping ([String: Any]) -> Void) -> Void
         let MRMediaRemoteGetNowPlayingInfo = unsafeBitCast(MRMediaRemoteGetNowPlayingInfoPointer, to: MRMediaRemoteGetNowPlayingInfoFunction.self)
         
-        MRMediaRemoteGetNowPlayingInfo(DispatchQueue.main, { (information) in
-            debugPrint("artist: \(information["kMRMediaRemoteNowPlayingInfoArtist"])")
-            debugPrint("title: \(information["kMRMediaRemoteNowPlayingInfoTitle"])")
-            debugPrint("album: \(information["kMRMediaRemoteNowPlayingInfoAlbum"])")
-//                debugPrint("artwork: \(information["kMRMediaRemoteNowPlayingInfoArtworkData"])")
-            debugPrint("elapsedTime: \(information["kMRMediaRemoteNowPlayingInfoElapsedTime"])")
-            debugPrint("duration: \(information["kMRMediaRemoteNowPlayingInfoDuration"])")
+        MRMediaRemoteGetNowPlayingInfo(DispatchQueue.main, { information in
+            if !information.isEmpty {
+                self.updateStatusItem(information: information)
+            }
         })
+    }
+    
+    private func updateStatusItem(information: [String: Any]) {
+        let artist = information["kMRMediaRemoteNowPlayingInfoArtist"] ?? ""
+        let title = information["kMRMediaRemoteNowPlayingInfoTitle"] ?? ""
+        let album = information["kMRMediaRemoteNowPlayingInfoAlbum"] ?? ""
+        let duration = information["kMRMediaRemoteNowPlayingInfoDuration"] ?? ""
+        
+        guard let button = statusItem.button else { return }
+        button.title = "\(artist) - \(title)"
     }
 }
