@@ -13,6 +13,7 @@
 		9002841D2C416B46009F9030 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 9002841C2C416B46009F9030 /* Base */; };
 		900284252C416B5E009F9030 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900284242C416B5E009F9030 /* main.swift */; };
 		900284272C416BA0009F9030 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900284262C416BA0009F9030 /* StatusBar.swift */; };
+		900284292C43B5D2009F9030 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900284282C43B5D2009F9030 /* NowPlayingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		9002841E2C416B46009F9030 /* NowPlayingInMenuBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NowPlayingInMenuBar.entitlements; sourceTree = "<group>"; };
 		900284242C416B5E009F9030 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		900284262C416BA0009F9030 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
+		900284282C43B5D2009F9030 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				9002841E2C416B46009F9030 /* NowPlayingInMenuBar.entitlements */,
 				900284242C416B5E009F9030 /* main.swift */,
 				900284262C416BA0009F9030 /* StatusBar.swift */,
+				900284282C43B5D2009F9030 /* NowPlayingViewController.swift */,
 			);
 			path = NowPlayingInMenuBar;
 			sourceTree = "<group>";
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				900284182C416B44009F9030 /* ViewController.swift in Sources */,
+				900284292C43B5D2009F9030 /* NowPlayingViewController.swift in Sources */,
 				900284162C416B44009F9030 /* AppDelegate.swift in Sources */,
 				900284252C416B5E009F9030 /* main.swift in Sources */,
 				900284272C416BA0009F9030 /* StatusBar.swift in Sources */,

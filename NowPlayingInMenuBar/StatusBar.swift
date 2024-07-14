@@ -9,6 +9,8 @@ class StatusBar: NSObject {
     
     private var statusItem: NSStatusItem!
     private var popover: NSPopover!
+    private let nowPlayingViewController = NowPlayingViewController()
+
     
     private let bundle = CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
     
@@ -16,6 +18,8 @@ class StatusBar: NSObject {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         
         super.init()
+        
+        addPopover()
         
         getNowPlayingInfo()
         loadNowPlaying()
@@ -37,12 +41,13 @@ class StatusBar: NSObject {
         
         MRMediaRemoteGetNowPlayingInfo(DispatchQueue.main, { information in
             if !information.isEmpty {
-                self.updateStatusItem(information: information)
+                self.updateStatusItem(information)
+                self.nowPlayingViewController.information = information
             }
         })
     }
     
-    private func updateStatusItem(information: [String: Any]) {
+    private func updateStatusItem(_ information: [String: Any]) {
         let artist = information["kMRMediaRemoteNowPlayingInfoArtist"] ?? ""
         let title = information["kMRMediaRemoteNowPlayingInfoTitle"] ?? ""
         let album = information["kMRMediaRemoteNowPlayingInfoAlbum"] ?? ""
@@ -50,5 +55,24 @@ class StatusBar: NSObject {
         
         guard let button = statusItem.button else { return }
         button.title = "\(artist) - \(title)"
+        button.target = self
+        button.action = #selector(togglePopover)
+    }
+    
+    private func addPopover() {
+        popover = NSPopover()
+        popover.contentSize = NSSize(width: 400, height: 300)
+        popover.behavior = .transient
+        popover.contentViewController = nowPlayingViewController
+    }
+    
+    @objc private func togglePopover() {
+        if let button = statusItem.button {
+            if popover.isShown {
+                popover.performClose(nil)
+            } else {
+                popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+            }
+        }
     }
 }
