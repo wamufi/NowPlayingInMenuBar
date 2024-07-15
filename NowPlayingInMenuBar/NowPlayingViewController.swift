@@ -4,14 +4,25 @@
 //
 
 import AppKit
+import SnapKit
 
 class NowPlayingViewController: NSViewController {
     
-    var information: [String: Any]! {
-        didSet {
-            debugPrint(information)
-//            updateItems()
-        }
+    private var viewModel: NowPlayingViewModel
+    
+    private var imageView: NSImageView!
+    private var titleLabel: NSLabel!
+    private var artistLabel: NSLabel!
+    private var albumLabel: NSLabel!
+    
+    init(viewModel: NowPlayingViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func loadView() {
