@@ -46,6 +46,10 @@ class NowPlayingViewModel {
         self.data["kMRMediaRemoteNowPlayingInfoTitle"] as? String ?? ""
     }
     
+    var album: String {
+        self.data["kMRMediaRemoteNowPlayingInfoAlbum"] as? String ?? ""
+    }
+    
     var artwork: NSImage {
         if let artworkData = self.data["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data, let image = NSImage(data: artworkData) {
             image
@@ -54,3 +58,4 @@ class NowPlayingViewModel {
         }
     }
 }
+

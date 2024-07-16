@@ -8,12 +8,38 @@ import SnapKit
 
 class NowPlayingViewController: NSViewController {
     
-    private var viewModel: NowPlayingViewModel
+    private var viewModel: NowPlayingViewModel!
     
-    private var imageView: NSImageView!
-    private var titleLabel: NSLabel!
-    private var artistLabel: NSLabel!
-    private var albumLabel: NSLabel!
+    private var imageView: NSImageView = NSImageView()
+    private var titleLabel: NSLabel = {
+        let label = NSLabel()
+        label.alignment = .center
+        label.font = .boldSystemFont(ofSize: 20)
+        return label
+    }()
+    private var artistLabel: NSLabel = {
+        let label = NSLabel()
+        label.alignment = .center
+        label.font = .systemFont(ofSize: 16)
+        return label
+    }()
+    private var albumLabel: NSLabel = {
+        let label = NSLabel()
+        label.alignment = .center
+        label.font = .systemFont(ofSize: 16)
+        return label
+    }()
+    
+    private let stackView = {
+        let view = NSStackView()
+        view.orientation = .vertical
+        view.alignment = .centerX
+        view.edgeInsets = NSEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        view.distribution = .fillProportionally
+        view.spacing = 8
+        return view
+    }()
+    private let blurEffectView = NSVisualEffectView()
     
     init(viewModel: NowPlayingViewModel) {
         self.viewModel = viewModel
@@ -25,17 +51,94 @@ class NowPlayingViewController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        view = NSView(frame: NSRect(x: 0, y: 0, width: 400, height: 300))
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
     }
     
-    private func setupLayout() {
+    override func viewWillAppear() {
+        super.viewWillAppear()
         
+        blurEffectView.frame = view.bounds
+        blurEffectView.material = .hudWindow
+        blurEffectView.blendingMode = .withinWindow
+        blurEffectView.state = .active
+        view.addSubview(blurEffectView, positioned: .below, relativeTo: stackView)
+        
+        updateUI()
+    }
+    
+    private func setupLayout() {
+        stackView.addArrangedSubview(imageView)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(artistLabel)
+        stackView.addArrangedSubview(albumLabel)
+        view.addSubview(stackView)
+
+        imageView.snp.makeConstraints { make in
+            make.height.equalTo(imageView.snp.width)
+        }
+        
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalTo(view.safeAreaLayoutGuide)
+            make.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.width.equalTo(400)
+        }
+    }
+    
+    func updateUI() {
+        imageView.image = viewModel.artwork
+        titleLabel.stringValue = viewModel.title
+        artistLabel.stringValue = viewModel.artist
+        albumLabel.stringValue = viewModel.album
+        
+        if let dominantColor = viewModel.artwork.dominantColor {
+            view.layer?.backgroundColor = dominantColor.cgColor
+        }
+    }
+}
+
+extension NSImage {
+    var averageColor: NSColor? {
+        var imageRect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
+        let cgImageRef = self.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
+        
+        let inputImage = CIImage(cgImage: cgImageRef!)
+        let extentVector = CIVector(x: inputImage.extent.origin.x, y: inputImage.extent.origin.y, z: inputImage.extent.size.width, w: inputImage.extent.size.height)
+
+        guard let filter = CIFilter(name: "CIAreaAverage", parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: extentVector]) else { return nil }
+        guard let outputImage = filter.outputImage else { return nil }
+
+        var bitmap = [UInt8](repeating: 0, count: 4)
+        let context = CIContext(options: [.workingColorSpace: kCFNull!])
+        context.render(outputImage, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: 0, y: 0, width: 1, height: 1), format: .RGBA8, colorSpace: nil)
+
+        return NSColor(red: CGFloat(bitmap[0]) / 255, green: CGFloat(bitmap[1]) / 255, blue: CGFloat(bitmap[2]) / 255, alpha: CGFloat(bitmap[3]) / 255)
+    }
+    
+    var dominantColor: NSColor? {
+        guard let cgImage = self.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
+        let ciImage = CIImage(cgImage: cgImage)
+
+        let context = CIContext(options: nil)
+        guard let filter = CIFilter(name: "CIAreaAverage") else { return nil }
+        filter.setValue(ciImage, forKey: kCIInputImageKey)
+        filter.setValue(CIVector(cgRect: ciImage.extent), forKey: kCIInputExtentKey)
+
+        guard let outputImage = filter.outputImage,
+              let cgImage = context.createCGImage(outputImage, from: CGRect(x: 0, y: 0, width: 1, height: 1)),
+              let dataProvider = cgImage.dataProvider,
+              let data = dataProvider.data,
+              let bytes = CFDataGetBytePtr(data) else { return nil }
+
+        let red = CGFloat(bytes[0]) / 255.0
+        let green = CGFloat(bytes[1]) / 255.0
+        let blue = CGFloat(bytes[2]) / 255.0
+        let alpha = CGFloat(bytes[3]) / 255.0
+
+        return NSColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 }

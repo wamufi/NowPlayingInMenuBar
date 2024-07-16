@@ -23,6 +23,7 @@ class StatusBar: NSObject {
         addPopover()
         viewModel.onDataUpdated = { [weak self] in
             self?.updateStatusItem()
+            self?.nowPlayingViewController.updateUI()
         }
     }
 
@@ -41,7 +42,7 @@ class StatusBar: NSObject {
     
     private func addPopover() {
         popover = NSPopover()
-        popover.contentSize = NSSize(width: 400, height: 300)
+        popover.contentSize = NSSize(width: 400, height: 200)
         popover.behavior = .transient
         popover.contentViewController = nowPlayingViewController
     }
