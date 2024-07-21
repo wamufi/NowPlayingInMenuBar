@@ -21,6 +21,8 @@ class StatusBar: NSObject {
         super.init()
         
         addPopover()
+        updateStatusItem()
+        
         viewModel.onDataUpdated = { [weak self] in
             self?.updateStatusItem()
             self?.nowPlayingViewController.updateUI()
@@ -30,10 +32,10 @@ class StatusBar: NSObject {
     private func updateStatusItem() {
         guard let button = statusItem.button else { return }
         button.title = {
-            if viewModel.artist.isEmpty {
-                "\(viewModel.title)"
+            if viewModel.isDataEmpty {
+                "No music playing"
             } else {
-                "\(viewModel.artist) - \(viewModel.title)"
+                viewModel.artist.isEmpty ? "\(viewModel.title)" : "\(viewModel.artist) - \(viewModel.title)"
             }
         }()
         button.target = self
@@ -42,7 +44,7 @@ class StatusBar: NSObject {
     
     private func addPopover() {
         popover = NSPopover()
-        popover.contentSize = NSSize(width: 400, height: 200)
+        popover.contentSize = nowPlayingViewController.view.frame.size
         popover.behavior = .transient
         popover.contentViewController = nowPlayingViewController
     }
@@ -53,6 +55,7 @@ class StatusBar: NSObject {
                 popover.performClose(nil)
             } else {
                 popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+                popover.contentViewController?.view.window?.makeKey()
             }
         }
     }

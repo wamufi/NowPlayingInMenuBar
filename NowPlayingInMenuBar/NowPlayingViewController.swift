@@ -87,6 +87,13 @@ class NowPlayingViewController: NSViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.width.equalTo(400)
         }
+        
+        for subview in stackView.arrangedSubviews {
+            if subview is NSLabel {
+                subview.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 8).isActive = true
+                subview.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -8).isActive = true
+            }
+        }
     }
     
     func updateUI() {
@@ -102,23 +109,6 @@ class NowPlayingViewController: NSViewController {
 }
 
 extension NSImage {
-    var averageColor: NSColor? {
-        var imageRect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
-        let cgImageRef = self.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
-        
-        let inputImage = CIImage(cgImage: cgImageRef!)
-        let extentVector = CIVector(x: inputImage.extent.origin.x, y: inputImage.extent.origin.y, z: inputImage.extent.size.width, w: inputImage.extent.size.height)
-
-        guard let filter = CIFilter(name: "CIAreaAverage", parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: extentVector]) else { return nil }
-        guard let outputImage = filter.outputImage else { return nil }
-
-        var bitmap = [UInt8](repeating: 0, count: 4)
-        let context = CIContext(options: [.workingColorSpace: kCFNull!])
-        context.render(outputImage, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: 0, y: 0, width: 1, height: 1), format: .RGBA8, colorSpace: nil)
-
-        return NSColor(red: CGFloat(bitmap[0]) / 255, green: CGFloat(bitmap[1]) / 255, blue: CGFloat(bitmap[2]) / 255, alpha: CGFloat(bitmap[3]) / 255)
-    }
-    
     var dominantColor: NSColor? {
         guard let cgImage = self.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
         let ciImage = CIImage(cgImage: cgImage)

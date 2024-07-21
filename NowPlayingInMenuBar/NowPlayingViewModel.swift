@@ -34,6 +34,8 @@ class NowPlayingViewModel {
             if !information.isEmpty {
                 self.data = information
                 self.onDataUpdated?()
+            } else {
+                self.data = [:]
             }
         })
     }
@@ -56,6 +58,10 @@ class NowPlayingViewModel {
         } else {
             NSImage()
         }
+    }
+    
+    var isDataEmpty: Bool {
+        self.data.isEmpty ? true : false
     }
 }
 
