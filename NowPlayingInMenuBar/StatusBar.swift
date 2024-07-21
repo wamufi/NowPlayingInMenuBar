@@ -9,6 +9,7 @@ class StatusBar: NSObject {
     
     private var statusItem: NSStatusItem!
     private var popover: NSPopover!
+    private var menu: NSMenu!
     private let viewModel = NowPlayingViewModel()
     private let nowPlayingViewController: NowPlayingViewController
     
@@ -21,6 +22,7 @@ class StatusBar: NSObject {
         super.init()
         
         addPopover()
+        addMenu()
         updateStatusItem()
         
         viewModel.onDataUpdated = { [weak self] in
@@ -39,7 +41,8 @@ class StatusBar: NSObject {
             }
         }()
         button.target = self
-        button.action = #selector(togglePopover)
+        button.action = #selector(statusButtonClicked(sender:))
+        button.sendAction(on: [.leftMouseUp, .rightMouseUp])
     }
     
     private func addPopover() {
@@ -49,7 +52,33 @@ class StatusBar: NSObject {
         popover.contentViewController = nowPlayingViewController
     }
     
-    @objc private func togglePopover() {
+    private func addMenu() {
+        menu = NSMenu(title: "Settings")
+        
+        let quitItem = NSMenuItem(title: "Quit", action: #selector(quitAction), keyEquivalent: "")
+        quitItem.target = self
+        
+        menu.addItem(quitItem)
+    }
+    
+    @objc private func statusButtonClicked(sender: NSStatusBarButton) {
+        guard let event = NSApp.currentEvent else { return }
+        
+        if event.type ==  NSEvent.EventType.rightMouseUp {
+            toggleMenu()
+        } else {
+            togglePopover()
+        }
+    }
+    
+    private func toggleMenu() {
+        statusItem.menu = menu
+        statusItem.button?.performClick(nil)
+        
+        statusItem.menu = nil
+    }
+    
+    private func togglePopover() {
         if let button = statusItem.button {
             if popover.isShown {
                 popover.performClose(nil)
@@ -58,5 +87,9 @@ class StatusBar: NSObject {
                 popover.contentViewController?.view.window?.makeKey()
             }
         }
+    }
+    
+    @objc private func quitAction() {
+        NSApplication.shared.terminate(self)
     }
 }
