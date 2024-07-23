@@ -55,9 +55,14 @@ class StatusBar: NSObject {
     private func addMenu() {
         menu = NSMenu(title: "Settings")
         
+        let settingItem = NSMenuItem(title: "Settings...", action: #selector(settingAction), keyEquivalent: "")
+        settingItem.target = self
+        
         let quitItem = NSMenuItem(title: "Quit", action: #selector(quitAction), keyEquivalent: "")
         quitItem.target = self
         
+        menu.addItem(settingItem)
+        menu.addItem(.separator())
         menu.addItem(quitItem)
     }
     
@@ -87,6 +92,11 @@ class StatusBar: NSObject {
                 popover.contentViewController?.view.window?.makeKey()
             }
         }
+    }
+    
+    @objc private func settingAction() {
+        let preferencesWindowController = PreferencesWindowController()
+        preferencesWindowController.show()
     }
     
     @objc private func quitAction() {

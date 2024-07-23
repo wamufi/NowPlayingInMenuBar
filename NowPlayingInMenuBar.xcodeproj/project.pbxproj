@@ -16,6 +16,7 @@
 		900284292C43B5D2009F9030 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900284282C43B5D2009F9030 /* NowPlayingViewController.swift */; };
 		9002842F2C453C40009F9030 /* NowPlayingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9002842E2C453C40009F9030 /* NowPlayingViewModel.swift */; };
 		900284342C454E2A009F9030 /* NSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900284332C454E2A009F9030 /* NSLabel.swift */; };
+		90AFA93B2C4EA19000F20C74 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AFA93A2C4EA19000F20C74 /* PreferencesWindowController.swift */; };
 		90BA43EF2C4CE683001B9A18 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 90BA43EE2C4CE683001B9A18 /* SnapKit */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		900284282C43B5D2009F9030 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		9002842E2C453C40009F9030 /* NowPlayingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewModel.swift; sourceTree = "<group>"; };
 		900284332C454E2A009F9030 /* NSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLabel.swift; sourceTree = "<group>"; };
+		90AFA93A2C4EA19000F20C74 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				900284282C43B5D2009F9030 /* NowPlayingViewController.swift */,
 				9002842E2C453C40009F9030 /* NowPlayingViewModel.swift */,
 				900284332C454E2A009F9030 /* NSLabel.swift */,
+				90AFA93A2C4EA19000F20C74 /* PreferencesWindowController.swift */,
 			);
 			path = NowPlayingInMenuBar;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				9002842F2C453C40009F9030 /* NowPlayingViewModel.swift in Sources */,
 				900284162C416B44009F9030 /* AppDelegate.swift in Sources */,
 				900284252C416B5E009F9030 /* main.swift in Sources */,
+				90AFA93B2C4EA19000F20C74 /* PreferencesWindowController.swift in Sources */,
 				900284272C416BA0009F9030 /* StatusBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

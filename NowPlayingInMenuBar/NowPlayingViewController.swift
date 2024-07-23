@@ -97,14 +97,18 @@ class NowPlayingViewController: NSViewController {
     }
     
     func updateUI() {
-        imageView.image = viewModel.artwork
+        if let artwork = viewModel.artwork {
+            imageView.isHidden = false
+            imageView.image = artwork
+            
+            if let dominantColor = viewModel.artwork?.dominantColor {
+                view.layer?.backgroundColor = dominantColor.cgColor
+            }
+        }
+        
         titleLabel.stringValue = viewModel.title
         artistLabel.stringValue = viewModel.artist
         albumLabel.stringValue = viewModel.album
-        
-        if let dominantColor = viewModel.artwork.dominantColor {
-            view.layer?.backgroundColor = dominantColor.cgColor
-        }
     }
 }
 
