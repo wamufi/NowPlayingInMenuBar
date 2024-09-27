@@ -35,7 +35,9 @@ class StatusBar: NSObject {
         guard let button = statusItem.button else { return }
         button.title = {
             if viewModel.isDataEmpty {
-                "No music playing"
+                "􀪆"
+            } else if viewModel.title.isEmpty {
+                "􀊙"
             } else {
                 viewModel.artist.isEmpty ? "\(viewModel.title)" : "\(viewModel.artist) - \(viewModel.title)"
             }
@@ -72,7 +74,9 @@ class StatusBar: NSObject {
         if event.type ==  NSEvent.EventType.rightMouseUp {
             toggleMenu()
         } else {
-            togglePopover()
+            if !viewModel.isDataEmpty {
+                togglePopover()
+            }
         }
     }
     
@@ -96,7 +100,8 @@ class StatusBar: NSObject {
     
     @objc private func settingAction() {
         let preferencesWindowController = PreferencesWindowController()
-        preferencesWindowController.show()
+        preferencesWindowController.showWindow(nil)
+//        preferencesWindowController.show()
     }
     
     @objc private func quitAction() {

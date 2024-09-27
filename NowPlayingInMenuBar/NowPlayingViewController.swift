@@ -104,6 +104,9 @@ class NowPlayingViewController: NSViewController {
             if let dominantColor = viewModel.artwork?.dominantColor {
                 view.layer?.backgroundColor = dominantColor.cgColor
             }
+        } else {
+            imageView.isHidden = true
+            stackView.snp.updateConstraints { $0.top.equalTo(view.safeAreaLayoutGuide).inset(16) }
         }
         
         titleLabel.stringValue = viewModel.title
