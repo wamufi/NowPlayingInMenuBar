@@ -4,8 +4,11 @@
 //
 
 import AppKit
+import SwiftUI
 
 class StatusBar: NSObject {
+    
+    var window: NSWindow?
     
     private var statusItem: NSStatusItem!
     private var popover: NSPopover!
@@ -100,8 +103,16 @@ class StatusBar: NSObject {
     
     @objc private func settingAction() {
         let preferencesWindowController = PreferencesWindowController()
-        preferencesWindowController.showWindow(nil)
+//        preferencesWindowController.showWindow(nil)
 //        preferencesWindowController.show()
+        
+        let hostingController = NSHostingController(rootView: PreferencesView())
+        
+        let window = NSWindow(contentViewController: hostingController)
+        window.setContentSize(NSSize(width: 320, height: 400))
+        
+        let controller = NSWindowController(window: window)
+        controller.showWindow(nil)
     }
     
     @objc private func quitAction() {

@@ -9,7 +9,11 @@ import SnapKit
 
 class PreferencesWindowController: NSWindowController {
     
-    private var launchAtLogin: Bool = SMAppService.mainApp.status == .enabled
+    private var launchAtLogin: Bool = SMAppService.mainApp.status == .enabled {
+        didSet {
+            print("launchAtLogin: \(launchAtLogin)")
+        }
+    }
     private let stackView = {
         let view = NSStackView()
         view.orientation = .vertical
@@ -20,14 +24,35 @@ class PreferencesWindowController: NSWindowController {
         return view
     }()
     
-    convenience init() {
-        self.init(window: NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 300), styleMask: [.titled, .closable], backing: .buffered, defer: false))
+//    convenience init() {
+//        self.init(window: NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 300), styleMask: [.titled, .closable], backing: .buffered, defer: false))
+//        
+//        window?.center()
+//        window?.title = "Preferences"
+//        window?.delegate = self
+//        
+//        setupLayout()
+//    }
+    
+    override init(window: NSWindow?) {
+        super.init(window: nil)
         
-        window?.center()
-        window?.title = "Preferences"
-        window?.delegate = self
+        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 400, height: 300), styleMask: [.titled, .closable], backing: .buffered, defer: false)
+        window.title = "Preferences"
+        self.window = window
         
+        print("asdf 000")
         setupLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadWindow() {
+        super.loadWindow()
+        
+        print("asdf 222")
     }
     
     private func setupLayout() {
@@ -36,7 +61,9 @@ class PreferencesWindowController: NSWindowController {
         
         let launchCheckbox = NSButton(checkboxWithTitle: "Launch at Login", target: self, action: #selector(launchCheckboxTapped(sender:)))
         launchCheckbox.state = launchAtLogin ? .on : .off
-        stackView.addArrangedSubview(launchCheckbox)
+        print("asdf launchAtLogin 333: \(launchAtLogin)")
+//        stackView.addArrangedSubview(launchCheckbox)
+        view.addSubview(launchCheckbox)
         
         stackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -55,7 +82,8 @@ class PreferencesWindowController: NSWindowController {
         NSApp.setActivationPolicy(.regular)
     }
     
-    @IBAction func launchCheckboxTapped(sender: NSButton) {
+    @objc private func launchCheckboxTapped(sender: NSButton) {
+        print("asdf sender: \(sender)")
         do {
             if sender.state == .on {
                 try SMAppService.mainApp.register()
@@ -63,9 +91,10 @@ class PreferencesWindowController: NSWindowController {
                 try SMAppService.mainApp.unregister()
             }
         } catch {
-//            logError(items: error.localizedDescription)
+            print(error.localizedDescription)
         }
         
+        print("asdf SMAppService: \(SMAppService.mainApp.status)")
         launchAtLogin = SMAppService.mainApp.status == .enabled
     }
 }

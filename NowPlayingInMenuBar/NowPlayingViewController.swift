@@ -98,6 +98,8 @@ class NowPlayingViewController: NSViewController {
     
     func updateUI() {
         if let artwork = viewModel.artwork {
+            stackView.snp.updateConstraints { $0.top.equalTo(view.safeAreaLayoutGuide) }
+
             imageView.isHidden = false
             imageView.image = artwork
             

@@ -11,11 +11,12 @@
 		900284182C416B44009F9030 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900284172C416B44009F9030 /* ViewController.swift */; };
 		9002841A2C416B46009F9030 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 900284192C416B46009F9030 /* Assets.xcassets */; };
 		9002841D2C416B46009F9030 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 9002841C2C416B46009F9030 /* Base */; };
-		900284252C416B5E009F9030 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900284242C416B5E009F9030 /* main.swift */; };
 		900284272C416BA0009F9030 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900284262C416BA0009F9030 /* StatusBar.swift */; };
 		900284292C43B5D2009F9030 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900284282C43B5D2009F9030 /* NowPlayingViewController.swift */; };
 		9002842F2C453C40009F9030 /* NowPlayingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9002842E2C453C40009F9030 /* NowPlayingViewModel.swift */; };
 		900284342C454E2A009F9030 /* NSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900284332C454E2A009F9030 /* NSLabel.swift */; };
+		901D62732D3CC16D009F070C /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901D62722D3CC16D009F070C /* PreferencesView.swift */; };
+		901D62792D3CD36A009F070C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901D62782D3CD36A009F070C /* main.swift */; };
 		90AFA93B2C4EA19000F20C74 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AFA93A2C4EA19000F20C74 /* PreferencesWindowController.swift */; };
 		90BA43EF2C4CE683001B9A18 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 90BA43EE2C4CE683001B9A18 /* SnapKit */; };
 /* End PBXBuildFile section */
@@ -27,11 +28,12 @@
 		900284192C416B46009F9030 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9002841C2C416B46009F9030 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9002841E2C416B46009F9030 /* NowPlayingInMenuBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NowPlayingInMenuBar.entitlements; sourceTree = "<group>"; };
-		900284242C416B5E009F9030 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		900284262C416BA0009F9030 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		900284282C43B5D2009F9030 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		9002842E2C453C40009F9030 /* NowPlayingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewModel.swift; sourceTree = "<group>"; };
 		900284332C454E2A009F9030 /* NSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLabel.swift; sourceTree = "<group>"; };
+		901D62722D3CC16D009F070C /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		901D62782D3CD36A009F070C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		90AFA93A2C4EA19000F20C74 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,13 +72,14 @@
 				900284172C416B44009F9030 /* ViewController.swift */,
 				900284192C416B46009F9030 /* Assets.xcassets */,
 				9002841B2C416B46009F9030 /* Main.storyboard */,
+				901D62782D3CD36A009F070C /* main.swift */,
 				9002841E2C416B46009F9030 /* NowPlayingInMenuBar.entitlements */,
-				900284242C416B5E009F9030 /* main.swift */,
 				900284262C416BA0009F9030 /* StatusBar.swift */,
 				900284282C43B5D2009F9030 /* NowPlayingViewController.swift */,
 				9002842E2C453C40009F9030 /* NowPlayingViewModel.swift */,
 				900284332C454E2A009F9030 /* NSLabel.swift */,
 				90AFA93A2C4EA19000F20C74 /* PreferencesWindowController.swift */,
+				901D62722D3CC16D009F070C /* PreferencesView.swift */,
 			);
 			path = NowPlayingInMenuBar;
 			sourceTree = "<group>";
@@ -112,7 +115,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					900284112C416B44009F9030 = {
 						CreatedOnToolsVersion = 15.4;
@@ -161,8 +164,9 @@
 				900284182C416B44009F9030 /* ViewController.swift in Sources */,
 				900284292C43B5D2009F9030 /* NowPlayingViewController.swift in Sources */,
 				9002842F2C453C40009F9030 /* NowPlayingViewModel.swift in Sources */,
+				901D62732D3CC16D009F070C /* PreferencesView.swift in Sources */,
 				900284162C416B44009F9030 /* AppDelegate.swift in Sources */,
-				900284252C416B5E009F9030 /* main.swift in Sources */,
+				901D62792D3CD36A009F070C /* main.swift in Sources */,
 				90AFA93B2C4EA19000F20C74 /* PreferencesWindowController.swift in Sources */,
 				900284272C416BA0009F9030 /* StatusBar.swift in Sources */,
 			);
@@ -216,6 +220,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -279,6 +284,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -309,6 +315,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -334,6 +341,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
